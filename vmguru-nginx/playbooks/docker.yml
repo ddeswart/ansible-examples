@@ -42,3 +42,16 @@
       name: docker
       state: started
       enabled: yes
+  
+  - name: fetch docker-compose checksum
+    uri:
+      url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64.sha256
+      return_content: yes
+    register: docker_compose_checksum
+
+  - name: install docker-compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+      checksum: "sha256:{{ docker_compose_checksum.content.split(' ') | first }}"
+      dest: /usr/local/bin/docker-compose
+      mode: '0755'
