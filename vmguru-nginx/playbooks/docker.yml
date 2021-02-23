@@ -1,4 +1,8 @@
 ---
+- name: Install Docker on Ubuntu 18.04
+  hosts: all
+  connection: ssh
+
 - name: apt update
   apt:
     update_cache: yes
@@ -19,7 +23,7 @@
 
 - name: add docker apt repo
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable"
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
     state: present
     update_cache: yes
   
