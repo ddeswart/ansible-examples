@@ -16,6 +16,7 @@
       - curl
       - gnupg2
       - software-properties-common
+      - nfs-common
 
   - name: add docker apt key
     apt_key:
