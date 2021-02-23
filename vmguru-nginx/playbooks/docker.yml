@@ -4,11 +4,11 @@
   connection: ssh
 
 - name: apt update
-  ansible.builtin.apt:
+  apt:
     update_cache: yes
 
 - name: Install prerequisites for Docker repository
-  ansible.builtin.apt:
+  apt:
     pkg:
     - apt-transport-https
     - ca-certificates
@@ -17,18 +17,18 @@
     - software-properties-common
 
 - name: add docker apt key
-  ansible.builtin.apt_key:
+  apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: add docker apt repo
-  ansible.builtin.apt_repository:
+  apt_repository:
     repo: deb https://download.docker.com/linux/ubuntu bionic stable
     state: present
     update_cache: yes
   
 - name: install docker and it's dependencies
-  ansible_builtin.apt:
+  apt:
     pkg:
       - docker-ce
       - docker-ce-cli
