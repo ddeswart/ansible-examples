@@ -1,7 +1,6 @@
 - name: Install Docker on Ubuntu 18.04
   hosts: all
   connection: ssh
-  become: yes
   tasks:
 
   - name: apt update
