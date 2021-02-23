@@ -2,41 +2,43 @@
 - name: Install Docker on Ubuntu 18.04
   hosts: all
   connection: ssh
-
-- name: apt update
-  apt:
-    update_cache: yes
-
-- name: Install prerequisites for Docker repository
-  apt:
-    pkg:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - gnupg2
-    - software-properties-common
-
-- name: add docker apt key
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-
-- name: add docker apt repo
-  apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu bionic stable
-    state: present
-    update_cache: yes
   
-- name: install docker and it's dependencies
-  apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-    state: present
+  tasks:
 
-- name: start and enable docker daemon
-  service:
-    name: docker
-    state: started
-    enabled: yes
+  - name: apt update
+    apt:
+      update_cache: yes
+
+  - name: Install prerequisites for Docker repository
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+
+  - name: add docker apt key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: add docker apt repo
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+      update_cache: yes
+  
+  - name: install docker and it's dependencies
+    apt:
+      pkg:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      state: present
+
+  - name: start and enable docker daemon
+    service:
+      name: docker
+      state: started
+      enabled: yes
